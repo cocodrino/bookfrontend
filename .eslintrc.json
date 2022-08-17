@@ -24,10 +24,14 @@
     "plugins": [
         "react",
         "@typescript-eslint",
-        "jest"
+        "jest",
+        "unused-imports"
     ],
     "rules": {
         "prettier/prettier": "error",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "unused-imports/no-unused-imports-ts": 2,
+        "@typescript-eslint/no-misused-promises": "off"
     }
 }
