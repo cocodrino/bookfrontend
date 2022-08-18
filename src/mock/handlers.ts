@@ -1,7 +1,6 @@
 import { rest } from "msw";
-import { getPokemonsURL, postPokemonsURL } from "../utils/Urls";
 import { Pokemon } from "../shared_types/pokemon";
-import { apiUrl } from "../utils/Axios";
+import { API_URL } from "../utils/Axios";
 
 const pokemonListAnswer = [
   {
@@ -61,11 +60,12 @@ const pokemonListAnswer = [
 
 let pokemonNextId = 100;
 
-const getPokemonHandler = rest.get(getPokemonsURL, (req, res, ctx) => {
+const getPokemonHandler = rest.get(API_URL, async (req, res, ctx) => {
+  console.info("call mock getPokemonHandler");
   return res(ctx.status(200), ctx.json(pokemonListAnswer));
 });
 
-const postPokemonHandler = rest.get(postPokemonsURL, async (req, res, ctx) => {
+const postPokemonHandler = rest.post(API_URL, async (req, res, ctx) => {
   //const newPoke = JSON.parse(req.body);
   const newPoke: Pokemon = await req.json();
   newPoke.id = 100;
@@ -73,14 +73,26 @@ const postPokemonHandler = rest.get(postPokemonsURL, async (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(newPoke));
 });
 
-const updatePokemonHandler = rest.put(`${apiUrl}/*`, async (req, res, ctx) => {
-  //const newPoke = JSON.parse(req.body);
-  const newPoke: Pokemon = await req.json();
-  return res(ctx.status(200), ctx.json(newPoke));
-});
+const updatePokemonHandler = rest.put(
+  `${API_URL}/:id`,
+  async (req, res, ctx) => {
+    //const newPoke = JSON.parse(req.body);
+    const newPoke: Pokemon = await req.json();
+    return res(ctx.status(200), ctx.json(newPoke));
+  }
+);
+
+const deletePokemonHandler = rest.delete(
+  `${API_URL}/:id`,
+  async (req, res, ctx) => {
+    const response = { success: true, type: "pokemon_removed" };
+    return res(ctx.status(200), ctx.json(response));
+  }
+);
 
 export const handlers = [
   getPokemonHandler,
   postPokemonHandler,
   updatePokemonHandler,
+  deletePokemonHandler,
 ];

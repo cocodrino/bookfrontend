@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import pokemonReducer from "./pokemonSlice";
+import pokemonPanelReducer from "./pokemonPanelSlice";
 
 export const store = configureStore({
   reducer: {
     pokemon: pokemonReducer,
+    pokemonPanel: pokemonPanelReducer,
   },
 });
 

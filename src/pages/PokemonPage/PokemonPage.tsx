@@ -1,43 +1,30 @@
 import "./PokemonPage.css";
-import { useState, useLayoutEffect, useMemo } from "react";
+import { useState, useLayoutEffect, useMemo, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  asyncDeletePokemon,
-  asyncLoadPokemons,
-} from "../../store/pokemonSlice";
+import { asyncLoadPokemons } from "../../store/pokemonSlice";
 import PokemonTable from "./components/PokemonTable";
 import PokemonAddorModifyPanel from "./components/PokemonAddPanel/PokemonAddorModifyPanel";
 import { Pokemon } from "../../shared_types/pokemon";
+import { pokemonPanelSlice } from "../../store/pokemonPanelSlice";
 
 function PokemonPage() {
   const [inputValue, setInputValue] = useState("");
   const pokemons = useAppSelector((state) => state.pokemon.pokemons);
-  const [showAddEditPokemonPanel, setShowAddEditPokemonPanel] = useState(false);
+  const showAddEditPokemonPanel = useAppSelector(
+    (state) => state.pokemonPanel.showPanel
+  );
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | undefined>();
 
   const dispatch = useAppDispatch();
   const filteredPokemons = useMemo(() => {
-    return pokemons.filter((pokemon) =>
+    return pokemons?.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(inputValue.toLowerCase())
     );
   }, [inputValue, pokemons]);
 
-  const toggleShowAddPokemonPanel = () => {
-    // if panel is open and click exit, selected must be empty
-    if (showAddEditPokemonPanel && selectedPokemon)
-      setSelectedPokemon(undefined);
-
-    setShowAddEditPokemonPanel((show) => !show);
-  };
-
-  const onEditPokemon = (pokemon: Pokemon) => {
-    setSelectedPokemon(pokemon);
-    setShowAddEditPokemonPanel(true);
-  };
-
-  const onDeletePokemon = (pokemonID: number) => {
-    dispatch(asyncDeletePokemon(pokemonID));
-  };
+  useEffect(() => {
+    console.info(filteredPokemons);
+  }, [filteredPokemons]);
 
   useLayoutEffect(() => {
     dispatch(asyncLoadPokemons());
@@ -51,27 +38,22 @@ function PokemonPage() {
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            data-testid="pokemon_search"
           />
         </div>
-        <button className="add_new_pokemon" onClick={toggleShowAddPokemonPanel}>
+        <button
+          className="add_new_pokemon"
+          onClick={() => dispatch(pokemonPanelSlice.actions.togglePanel(true))}
+        >
           + Nuevo
         </button>
       </div>
 
       <div>
-        <PokemonTable
-          pokemons={filteredPokemons}
-          deletePokemonFn={onDeletePokemon}
-          editPokemonFn={onEditPokemon}
-        />
+        <PokemonTable pokemons={filteredPokemons} />
       </div>
 
-      {showAddEditPokemonPanel && (
-        <PokemonAddorModifyPanel
-          togglePanelFn={toggleShowAddPokemonPanel}
-          pokemonToUpdate={selectedPokemon}
-        />
-      )}
+      {showAddEditPokemonPanel && <PokemonAddorModifyPanel />}
     </div>
   );
 }

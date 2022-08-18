@@ -1,14 +1,27 @@
 import axios, { AxiosInstance } from "axios";
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const apiUrl: string = import.meta.env.VITE_POKEMON_API;
+//TODO fix vite error jest
+//const apiUrl: string = import.meta.env.VITE_POKEMON_API;
+const API_URL = "https://bp-pokemons.herokuapp.com";
 
-if (!apiUrl) {
+if (!API_URL) {
   throw Error("please set VITE_POKEMON_API first");
 }
 
 const Axios: AxiosInstance = axios.create({
-  baseURL: apiUrl,
+  baseURL: API_URL,
 });
 
-export { apiUrl, Axios };
+/*
+Axios.interceptors.request.use((request) => {
+  console.log("Starting Request", JSON.stringify(request, null, 2));
+  return request;
+});
+
+Axios.interceptors.response.use((response) => {
+  console.log("Response:", JSON.stringify(response, null, 2));
+  return response;
+});
+*/
+
+export { API_URL, Axios };

@@ -5,15 +5,12 @@ import { AppDispatch } from "./store";
 import { Axios } from "../utils/Axios";
 import {
   DeletePokemonResponse,
-  deletePokemonURLByID,
-  getPokemonsURL,
   PokemonsResponse,
   PostPokemonResponse,
-  postPokemonsURL,
   PutPokemonResponse,
-  putPokemonURLByID,
 } from "../utils/Urls";
 import { toast } from "react-toastify";
+import { pokemonPanelSlice } from "./pokemonPanelSlice";
 
 export interface PokemonState {
   pokemons: Pokemon[];
@@ -63,21 +60,24 @@ export const pokemonSlice = createSlice({
 });
 
 export const asyncLoadPokemons = () => async (dispatch: AppDispatch) => {
-  const result: PokemonsResponse = await Axios.get(getPokemonsURL);
+  const result: PokemonsResponse = await Axios.get("/", {
+    params: { idAuthor: 1 },
+  });
+
   dispatch(pokemonSlice.actions.loadPokemons(result.data));
 };
 
 export const asyncSavePokemon =
   (pokemon: Pokemon) => async (dispatch: AppDispatch) => {
     try {
-      const response: PostPokemonResponse = await Axios.post(
-        postPokemonsURL,
-        pokemon
-      );
+      const response: PostPokemonResponse = await Axios.post("/", pokemon, {
+        params: { idAuthor: 1 },
+      });
 
       if (response.status == 200 && response.data.id) {
         dispatch(pokemonSlice.actions.addPokemon(response.data));
         toast("pokemon was saved");
+        dispatch(pokemonPanelSlice.actions.clearPanelData());
       } else {
         toast.error("Error. Please try again");
         console.error(
@@ -97,13 +97,16 @@ export const asyncUpdatePokemon =
     }
     try {
       const response: PutPokemonResponse = await Axios.post(
-        putPokemonURLByID(pokemon.id),
+        `/${pokemon.id}`,
         pokemon
       );
 
       if (response.status == 200 && response.data.id) {
         dispatch(pokemonSlice.actions.updatePokemon(response.data));
         toast("pokemon was updated");
+        setTimeout(() => {
+          dispatch(pokemonPanelSlice.actions.clearPanelData());
+        }, 2000);
       } else {
         toast.error("Error. Please try again");
         console.error(
@@ -117,23 +120,28 @@ export const asyncUpdatePokemon =
 
 export const asyncDeletePokemon =
   (id: number) => async (dispatch: AppDispatch) => {
-    if (id) {
+    console.info("REMOVING ", id);
+    if (!id) {
       console.error(`you need the id in order to update pokemon`);
       return;
     }
     try {
-      const response: DeletePokemonResponse = await Axios.delete(
-        deletePokemonURLByID(id)
-      );
+      const response: DeletePokemonResponse = await Axios.delete(`/${id}`);
 
-      if (response.status == 200 && response.data.id) {
+      if (
+        response.status == 200 &&
+        response.data.success &&
+        response.data.type === "pokemon_removed"
+      ) {
         dispatch(pokemonSlice.actions.deletePokemon(id));
       } else {
+        toast.error("Error. Please try again");
         console.error(
           `unexpected response ${response.status} / ${response.data}`
         );
       }
     } catch (e) {
+      toast.error("Error. Please try again");
       console.error(`error saving pokemon ${e}`);
     }
   };

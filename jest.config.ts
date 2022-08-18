@@ -14,5 +14,10 @@ export default {
   ],
   reporters: ["default"],
   globals: { "ts-jest": { diagnostics: false } },
-  transform: {},
+  transform: {
+    ".+\\.(css|styl|less|sass|scss|png|jpg|jpeg|ttf|woff|woff2)$":
+      "jest-transform-stub",
+  },
+  verbose: true,
+  setupFilesAfterEnv: ["./setupTest.ts"],
 };

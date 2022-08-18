@@ -6,8 +6,15 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import mswWorker from "./mock/msw_worker";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-if (import.meta.env.VITE_USE_POKEMON_API_MOCK === "yes") {
+console.log(
+  `import.meta.env.VITE_USE_POKEMON_API_MOCK is ${
+    import.meta.env.VITE_USE_POKEMON_API_MOCK
+  }`
+);
+if (import.meta.env.VITE_USE_POKEMON_API_MOCK === "true") {
+  console.info("USING MOCK API, YOU CAN CHANGE THIS IN THE .ENV FILE");
   mswWorker
     .start()
     .catch((e) => console.error(`error loading mocking server ${e}`));

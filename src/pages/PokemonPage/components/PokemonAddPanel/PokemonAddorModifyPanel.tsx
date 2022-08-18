@@ -1,48 +1,39 @@
 import { SyntheticEvent, useEffect, useMemo, useState } from "react";
 import { Pokemon } from "../../../../shared_types/pokemon";
-import { useAppDispatch } from "../../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import {
   asyncSavePokemon,
   asyncUpdatePokemon,
 } from "../../../../store/pokemonSlice";
+import { pokemonPanelSlice } from "../../../../store/pokemonPanelSlice";
 
-interface PokemonAddorModifyPanelProps {
-  togglePanelFn: () => void;
-  pokemonToUpdate?: Pokemon;
-}
-
-function PokemonAddorModifyPanel({
-  togglePanelFn,
-  pokemonToUpdate,
-}: PokemonAddorModifyPanelProps) {
+function PokemonAddorModifyPanel() {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [defense, setDefense] = useState("50");
   const [attack, setAttack] = useState("50");
+  const pokemonPanel = useAppSelector((state) => state.pokemonPanel);
 
   const dispatch = useAppDispatch();
 
+  const selectedPokemon = useMemo(
+    () => pokemonPanel.selectedPokemon,
+    [pokemonPanel.selectedPokemon]
+  );
+
   useEffect(() => {
-    setName(pokemonToUpdate?.name || "");
-    setUrl(pokemonToUpdate?.image || "");
-    setDefense(pokemonToUpdate?.defense.toString() || "50");
-    setAttack(pokemonToUpdate?.attack.toString() || "50");
-  }, [
-    pokemonToUpdate?.attack,
-    pokemonToUpdate?.defense,
-    pokemonToUpdate?.id,
-    pokemonToUpdate?.image,
-    pokemonToUpdate?.name,
-  ]);
+    setName(selectedPokemon?.name || "");
+    setUrl(selectedPokemon?.image || "");
+    setDefense(selectedPokemon?.defense || "50");
+    setAttack(selectedPokemon?.attack || "50");
+  }, [selectedPokemon?.id]);
 
   const isUpdateAction = useMemo(() => {
-    return !!pokemonToUpdate?.id;
-  }, [pokemonToUpdate?.id]);
+    return !!selectedPokemon?.id;
+  }, [selectedPokemon?.id]);
 
   const onClosePanel = () => {
-    setName("");
-    setUrl("");
-    togglePanelFn();
+    dispatch(pokemonPanelSlice.actions.clearPanelData());
   };
 
   const onSubmit = (e: SyntheticEvent) => {
@@ -51,7 +42,7 @@ function PokemonAddorModifyPanel({
       type: "undefined",
       hp: 100,
       id_author: 1,
-      ...(pokemonToUpdate || {}),
+      ...(selectedPokemon || {}),
       name,
       image: url,
       attack,

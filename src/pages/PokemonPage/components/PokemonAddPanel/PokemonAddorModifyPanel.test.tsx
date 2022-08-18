@@ -1,12 +1,26 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import PokemonAddorModifyPanel from "./PokemonAddorModifyPanel";
+import { configureStore } from "@reduxjs/toolkit";
+import pokemonPanelReducer from "../../../../store/pokemonPanelSlice";
+import renderWithProviders from "../../../../utils/reduxHelper";
 
-const onTogglePanel = jest.fn();
+const newPanelStore = configureStore({
+  reducer: {
+    pokemonPanel: pokemonPanelReducer,
+  },
+  preloadedState: {
+    pokemonPanel: {
+      showPanel: false,
+      selectedPokemon: undefined,
+    },
+  },
+});
 
 describe("Component Add PokemonPage Panel", () => {
-  render(<PokemonAddorModifyPanel togglePanelFn={onTogglePanel} />);
+  renderWithProviders(<PokemonAddorModifyPanel />, newPanelStore);
+
   it("display correctly", async () => {
     const displayedParameters = await screen.findAllByRole(
       "pokemon_add_panel_parameter"
@@ -36,8 +50,5 @@ describe("Component Add PokemonPage Panel", () => {
     });
 
     expect(screen.getByRole("save_pokemon")).not.toBeDisabled();
-
-    fireEvent.click(screen.getByRole("save_pokemon"));
-    expect(onTogglePanel.call.length).toBe(1);
   });
 });
