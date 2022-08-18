@@ -1,0 +1,12 @@
+.pokemon__head_controls{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.pokemon_table{
+    width: 95%;
+}
+

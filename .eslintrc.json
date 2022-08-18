@@ -32,6 +32,11 @@
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "unused-imports/no-unused-imports-ts": 2,
-        "@typescript-eslint/no-misused-promises": "off"
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/no-unsafe-assignment": 0,
+        "@typescript-eslint/restrict-template-expressions" : 0,
+        "@typescript-eslint/no-floating-promises" : 0,
+        "@typescript-eslint/no-unsafe-call": 0
     }
 }
