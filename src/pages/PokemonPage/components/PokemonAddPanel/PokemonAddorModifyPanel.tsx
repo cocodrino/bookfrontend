@@ -18,7 +18,7 @@ function PokemonAddorModifyPanel() {
   const pokemonPanel = useAppSelector((state) => state.pokemonPanel);
 
   const dispatch = useAppDispatch();
-  const ref = useRef();
+  const ref = useRef(null);
 
   const selectedPokemon = useMemo(
     () => pokemonPanel.selectedPokemon,
@@ -61,6 +61,10 @@ function PokemonAddorModifyPanel() {
     onClosePanel();
     e.preventDefault();
   };
+
+  // para ocultar el valor del slider luego de moverlo
+  const [showAttackValue, setShowAttackValue] = useState(false);
+  const [showDefenseValue, setShowDefenseValue] = useState(false);
 
   return (
     <div
@@ -120,14 +124,24 @@ function PokemonAddorModifyPanel() {
                 <label className="text-xl mr-4" htmlFor="Attack">
                   Ataque:
                 </label>
-                <input
-                  type="range"
-                  name="Attack"
-                  min="0"
-                  max="100"
-                  value={attack}
-                  onChange={(e) => setAttack(e.target.value)}
-                />
+                <div className="flex items-center">
+                  <input
+                    className="flex-grow"
+                    type="range"
+                    name="Attack"
+                    min="0"
+                    max="100"
+                    value={attack}
+                    onChange={(e) => {
+                      setAttack(e.target.value);
+                      setShowAttackValue(true);
+                      setTimeout(() => setShowAttackValue(false), 1000);
+                    }}
+                  />
+                  <span className="w-3 ml-3 text-violet-700 font-medium">
+                    {showAttackValue && attack}
+                  </span>
+                </div>
               </div>
 
               <div
@@ -137,14 +151,23 @@ function PokemonAddorModifyPanel() {
                 <label className="text-xl mr-3" htmlFor="Defense">
                   Defensa:
                 </label>
-                <input
-                  type="range"
-                  name="Defense"
-                  min="0"
-                  max="100"
-                  value={defense}
-                  onChange={(e) => setDefense(e.target.value)}
-                />
+                <div className="flex items-center">
+                  <input
+                    type="range"
+                    name="Defense"
+                    min="0"
+                    max="100"
+                    value={defense}
+                    onChange={(e) => {
+                      setDefense(e.target.value);
+                      setShowDefenseValue(true);
+                      setTimeout(() => setShowDefenseValue(false), 1000);
+                    }}
+                  />
+                  <span className="w-3 ml-3 text-violet-700 font-medium">
+                    {showDefenseValue && defense}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

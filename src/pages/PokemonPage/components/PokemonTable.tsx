@@ -23,7 +23,7 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
 
   return (
     <div className="pokemon_table">
-      <div className="pokemon_table__header grid grid-cols-5 bg-slate-100">
+      <div className="pokemon_table__header grid grid-cols-5 bg-slate-100 invisible md:visible">
         <div className="border flex justify-center items-center py-3 text-xl">
           Nombre
         </div>
@@ -46,9 +46,9 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
           <div
             key={`pokemon_row_${pokemon.id}`}
             role="pokemon_row"
-            className="grid grid-cols-5"
+            className="grid grid-cols-1 md:grid-cols-5"
           >
-            <div className="border border-slate-100 flex justify-center items-center text-lg">
+            <div className="border border-slate-100 flex justify-center items-center text-xl md:text-lg">
               {pokemon.name}
             </div>
 
