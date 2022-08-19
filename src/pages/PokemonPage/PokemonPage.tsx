@@ -31,10 +31,11 @@ function PokemonPage() {
 
   return (
     <div className="pokemon pt-14 px-10 h-screen">
-      <div className="pokemon__head_controls flex flex-row justify-between p-6 mt-10">
-        <div className="pokemon_search bg-red-200 ">
+      <div className="pokemon__head_controls flex flex-row justify-between items-end p-6 mt-10">
+        <div className="pokemon_search">
           <div className="mb-2 font-medium text-lg">Listado de Pokemon</div>
           <input
+            className="border border-violet-500 px-2 py-3 rounded-lg"
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -42,7 +43,7 @@ function PokemonPage() {
           />
         </div>
         <button
-          className="add_new_pokemon px-5 text-xl bg-violet-700 hover:bg-violet-900 rounded text-slate-50"
+          className="add_new_pokemon px-7 py-4 text-xl bg-violet-700 hover:bg-violet-900 rounded-md text-slate-50"
           onClick={() => dispatch(pokemonPanelSlice.actions.togglePanel())}
         >
           + Nuevo

@@ -9,6 +9,15 @@ interface PokemonListItemProps {
   pokemons: Pokemon[];
 }
 
+// dado que alguien puso rutas que no eran urls
+const isValidUrl = (urlString: string) => {
+  try {
+    return Boolean(new URL(urlString));
+  } catch (e) {
+    return false;
+  }
+};
+
 function PokemonTable({ pokemons }: PokemonListItemProps) {
   const dispatch = useAppDispatch();
 
@@ -45,8 +54,14 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
 
             <div className="border border-slate-100 flex justify-center items-center py-2">
               <img
-                className="w-12 m-auto"
-                src={pokemon.image || DefaultPokemonImage}
+                className="h-12 m-auto"
+                src={
+                  !pokemon.image ||
+                  pokemon.image === "" ||
+                  !isValidUrl(pokemon.image)
+                    ? DefaultPokemonImage
+                    : pokemon.image
+                }
                 alt=""
               />{" "}
             </div>
