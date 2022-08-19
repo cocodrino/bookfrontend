@@ -7,6 +7,8 @@ import {
 } from "../../../../store/pokemonSlice";
 import { pokemonPanelSlice } from "../../../../store/pokemonPanelSlice";
 
+import { FiSave, FiX } from "react-icons/fi";
+
 function PokemonAddorModifyPanel() {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
@@ -57,68 +59,95 @@ function PokemonAddorModifyPanel() {
   };
 
   return (
-    <div className="pokemon_add_panel">
-      <div>Nuevo Pokemon</div>
-      <div className="pokemon_add_panel_parameters">
+    <div className="pokemon_add_panel bg-slate-200 py-6 px-8 text-lg">
+      <div className="text-xl font-medium">
+        {isUpdateAction ? "Modificar Pokemon" : "Nuevo Pokemon"}
+      </div>
+      <div className="pokemon_add_panel_parameters mt-8">
         <form onSubmit={onSubmit}>
-          <div role="pokemon_add_panel_parameter">
-            <label htmlFor="Name">Nombre:</label>
-            <input
-              type="text"
-              name="Name"
-              value={name}
-              data-testid="name"
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
+          <div className="pokemon_add_panel_parameters_area flex justify-evenly mx-12">
+            <div className="pokemon_add_panel_first_column flex-grow">
+              <div role="pokemon_add_panel_parameter" className="mb-3">
+                <label className="text-xl" htmlFor="Name">
+                  Nombre:
+                </label>
+                <input
+                  className="ml-4 w-1/2 border border-violet-500 px-3 py-3 rounded-lg"
+                  type="text"
+                  name="Name"
+                  value={name}
+                  data-testid="name"
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              <div role="pokemon_add_panel_parameter">
+                <label className="text-xl" htmlFor="Image">
+                  Imagen:
+                </label>
+                <input
+                  className="ml-4 w-1/2 border border-violet-500 px-3 py-3 rounded-lg"
+                  type="url"
+                  name="Image"
+                  placeholder="url"
+                  value={url}
+                  data-testid="image"
+                  required
+                  onChange={(e) => setUrl(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="pokemon_add_panel_second_column flex-grow">
+              <div role="pokemon_add_panel_parameter" className="mb-3">
+                <label className="text-xl" htmlFor="Attack">
+                  Ataque:
+                </label>
+                <input
+                  className="ml-4"
+                  type="range"
+                  name="Attack"
+                  min="0"
+                  max="100"
+                  value={attack}
+                  onChange={(e) => setAttack(e.target.value)}
+                />
+              </div>
+
+              <div role="pokemon_add_panel_parameter">
+                <label className="text-xl" htmlFor="Defense">
+                  Defensa:
+                </label>
+                <input
+                  className="ml-4"
+                  type="range"
+                  name="Defense"
+                  min="0"
+                  max="100"
+                  value={defense}
+                  onChange={(e) => setDefense(e.target.value)}
+                />
+              </div>
+            </div>
           </div>
 
-          <div role="pokemon_add_panel_parameter">
-            <label htmlFor="Image">Imagen:</label>
-            <input
-              type="url"
-              name="Image"
-              placeholder="url"
-              value={url}
-              data-testid="image"
-              required
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </div>
-
-          <div role="pokemon_add_panel_parameter">
-            <label htmlFor="Attack">Ataque:</label>
-            <input
-              type="range"
-              name="Attack"
-              min="0"
-              max="100"
-              value={attack}
-              onChange={(e) => setAttack(e.target.value)}
-            />
-          </div>
-
-          <div role="pokemon_add_panel_parameter">
-            <label htmlFor="Defense">Defensa:</label>
-            <input
-              type="range"
-              name="Defense"
-              min="0"
-              max="100"
-              value={defense}
-              onChange={(e) => setDefense(e.target.value)}
-            />
-          </div>
-
-          <div className="pokemon_add_panel_buttons">
+          <div className="pokemon_add_panel_buttons text-xl pt-12 flex justify-center">
             <button
+              className="cursor-pointer px-5 py-4 text-xl bg-violet-700 hover:bg-violet-900 rounded text-slate-50 mx-3"
               role="save_pokemon"
               type="submit"
               disabled={name === "" || url === ""}
             >
-              {isUpdateAction ? "Actualizar" : "Guardar"}
+              <FiSave className="inline" />{" "}
+              <span>{isUpdateAction ? "Actualizar" : "Guardar"}</span>
             </button>
-            <button onClick={onClosePanel}>Cancelar</button>
+            <button
+              className="cursor-pointer px-5 text-xl bg-violet-700 hover:bg-violet-900 rounded text-slate-50 mx-3"
+              onClick={onClosePanel}
+            >
+              <FiX className="inline" /> <span>Cancelar</span>
+            </button>
           </div>
         </form>
       </div>

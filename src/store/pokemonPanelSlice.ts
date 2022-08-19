@@ -19,8 +19,8 @@ export const pokemonPanelSlice = createSlice({
       return { ...state, showPanel: true, selectedPokemon: action.payload };
     },
 
-    togglePanel: (state, action: PayloadAction<boolean>) => {
-      return { ...state, showPanel: action.payload };
+    togglePanel: (state) => {
+      return { ...state, showPanel: !state.showPanel };
     },
 
     clearPanelData: () => {

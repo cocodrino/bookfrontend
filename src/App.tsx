@@ -3,8 +3,8 @@ import PokemonPage from "./pages/PokemonPage/PokemonPage";
 
 function App() {
   return (
-    <div className="App">
-      <div className="card">
+    <div className="App w-full h-screen bg-slate-100">
+      <div>
         <PokemonPage />
       </div>
     </div>
