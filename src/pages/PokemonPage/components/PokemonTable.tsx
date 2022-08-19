@@ -46,15 +46,15 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
           <div
             key={`pokemon_row_${pokemon.id}`}
             role="pokemon_row"
-            className="grid grid-cols-1 md:grid-cols-5"
+            className="grid grid-cols-1 md:grid-cols-5 mb-20 md:mb-0"
           >
-            <div className="border border-slate-100 flex justify-center items-center text-xl md:text-lg">
+            <div className="border border-slate-100 flex justify-center items-center text-2xl md:text-lg uppercase md:capitalize font-semibold md:font-normal">
               {pokemon.name}
             </div>
 
             <div className="border border-slate-100 flex justify-center items-center py-2">
               <img
-                className="h-12 m-auto"
+                className="h-40 md:h-12 m-auto"
                 src={
                   !pokemon.image ||
                   pokemon.image === "" ||
@@ -66,15 +66,17 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
               />{" "}
             </div>
 
-            <div className="border border-slate-100 flex justify-center items-center text-lg">
+            <div className="border border-slate-100 flex justify-center items-center text-2xl md:text-lg">
+              <span className="visible md:invisible">Ataque:</span>
               {pokemon.attack}
             </div>
 
-            <div className="border border-slate-100 flex justify-center items-center text-lg">
+            <div className="border border-slate-100 flex justify-center items-center text-2xl md:text-lg">
+              <span className="visible md:invisible">Defensa:</span>
               {pokemon.defense}
             </div>
 
-            <div className="border border-slate-100 flex justify-center items-center text-xl">
+            <div className="border border-slate-100 flex justify-center items-center text-5xl md:text-lg pt-5 md:pt-0">
               <button
                 className="px-2 hover:text-violet-600"
                 onClick={() =>

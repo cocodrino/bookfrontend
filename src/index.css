@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(241 245 249);
+}
+html {
+    height: 100%;
+}
+
 input[type=range] {
     background: #ff000000;
     height: 25px;

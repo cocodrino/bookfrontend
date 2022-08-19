@@ -68,25 +68,25 @@ function PokemonAddorModifyPanel() {
 
   return (
     <div
-      className="pokemon_add_panel bg-slate-200 py-6 px-8 text-lg fixed bottom-0 right-0 w-full"
+      className="pokemon_add_panel bg-slate-200 py-6 px:3 md:px-8 text-lg fixed bottom-0 right-0 w-full"
       ref={ref}
     >
-      <div className="text-xl font-medium">
+      <div className="text-xl font-medium pl-5 md:pl-0">
         {isUpdateAction ? "Modificar Pokemon" : "Nuevo Pokemon"}
       </div>
       <div className="pokemon_add_panel_parameters mt-8">
         <form onSubmit={onSubmit}>
-          <div className="pokemon_add_panel_parameters_area grid grid-cols-2 mx-12">
+          <div className="pokemon_add_panel_parameters_area grid grid-cols-1 md:grid-cols-2 mx-12">
             <div className="pokemon_add_panel_first_column">
               <div
                 role="pokemon_add_panel_parameter"
-                className="mb-3 grid grid-cols-[auto,1fr] justify-center items-center"
+                className="mb-3 grid grid-cols-1 md:grid-cols-[auto,1fr] justify-center items-center"
               >
                 <label className="text-xl" htmlFor="Name">
                   Nombre:
                 </label>
                 <input
-                  className="ml-4 w-1/2 border border-violet-500 px-3 py-3 rounded-lg"
+                  className="ml-4 md:w-1/2 border border-violet-500 px-3 py-3 rounded-lg"
                   type="text"
                   name="Name"
                   value={name}
@@ -98,13 +98,13 @@ function PokemonAddorModifyPanel() {
 
               <div
                 role="pokemon_add_panel_parameter"
-                className="grid grid-cols-[auto,1fr] justify-center items-center"
+                className="grid grid-cols-1 md:grid-cols-[auto,1fr] justify-center items-center"
               >
                 <label className="text-xl" htmlFor="Image">
                   Imagen:
                 </label>
                 <input
-                  className="ml-4 w-1/2 border border-violet-500 px-3 py-3 rounded-lg"
+                  className="ml-4 md:w-1/2 border border-violet-500 px-3 py-3 rounded-lg"
                   type="url"
                   name="Image"
                   placeholder="url"
