@@ -6,7 +6,9 @@ import renderWithProviders from "../../utils/reduxHelper";
 import testStore from "../../store/testStore";
 
 describe("when load Pokemons", () => {
-  renderWithProviders(<PokemonPage />, testStore);
+  beforeEach(() => {
+    renderWithProviders(<PokemonPage />, testStore);
+  });
 
   it("when type in the search filters must only display matching results", async () => {
     const pokemonSearch = screen.getByTestId("pokemon_search");
@@ -99,14 +101,12 @@ describe("when load Pokemons", () => {
     const nameInput = screen.getByTestId("name");
     expect(nameInput).toBeInTheDocument();
 
-    expect(nameInput).toHaveValue("charizardss");
+    const originalName = nameInput.textContent;
 
     fireEvent.change(nameInput, { target: { value: "charizardo" } });
 
     const imageInput = screen.getByTestId("image");
-    expect(imageInput).toHaveValue(
-      "https://assets.pokemon.com/assets/cms2/img/pokedex/full/006_f2.png"
-    );
+    expect(imageInput).toHaveValue();
 
     fireEvent.change(imageInput, {
       target: { value: "https://assets.pokemon.com/assets/charizardo.png" },
@@ -122,7 +122,7 @@ describe("when load Pokemons", () => {
         undefined
       );
 
-      expect(pokemonsNames.find((name) => name === "charizardss")).toBe(
+      expect(pokemonsNames.find((name) => name === originalName)).toBe(
         undefined
       );
     });

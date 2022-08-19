@@ -6,7 +6,12 @@ import PokemonTable from "./PokemonTable";
 import { pokemonListAnswer } from "../../../../mock/handlers";
 
 describe("when load Pokemons", () => {
-  renderWithProviders(<PokemonTable pokemons={pokemonListAnswer} />, testStore);
+  beforeEach(() => {
+    renderWithProviders(
+      <PokemonTable pokemons={pokemonListAnswer} />,
+      testStore
+    );
+  });
 
   it("display correctly existing pokemons", async () => {
     const displayedPokemons = await screen.findAllByRole("pokemon_row");

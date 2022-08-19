@@ -76,6 +76,8 @@ export const asyncLoadPokemons = () => async (dispatch: AppDispatch) => {
 export const asyncSavePokemon =
   (pokemon: Pokemon) => async (dispatch: AppDispatch) => {
     try {
+      pokemon.idAuthor = 1;
+
       const response: PostPokemonResponse = await Axios.post("/", pokemon, {
         params: { idAuthor: 1 },
       });
@@ -102,7 +104,9 @@ export const asyncUpdatePokemon =
       return;
     }
     try {
-      const response: PutPokemonResponse = await Axios.post(
+      pokemon.id_author = 1; //super raro eso de id_author y idAuthor juntos
+      pokemon.idAuthor = 1;
+      const response: PutPokemonResponse = await Axios.put(
         `/${pokemon.id}`,
         pokemon
       );

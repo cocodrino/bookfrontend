@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import PokemonAddorModifyPanel from "./PokemonAddorModifyPanel";
@@ -19,7 +19,9 @@ const newPanelStore = configureStore({
 });
 
 describe("Component Add PokemonPage Panel", () => {
-  renderWithProviders(<PokemonAddorModifyPanel />, newPanelStore);
+  beforeEach(() => {
+    renderWithProviders(<PokemonAddorModifyPanel />, newPanelStore);
+  });
 
   it("display correctly", async () => {
     const displayedParameters = await screen.findAllByRole(
@@ -28,8 +30,10 @@ describe("Component Add PokemonPage Panel", () => {
     expect(displayedParameters.length).toEqual(4);
   });
 
-  it("button submit is disable by default", () => {
-    expect(screen.getByRole("save_pokemon")).toHaveAttribute("disabled");
+  it("button submit is disable by default", async () => {
+    await waitFor(() => {
+      expect(screen.getByRole("save_pokemon")).toHaveAttribute("disabled");
+    });
   });
 
   it("when name and url is filled button is enabled and can be clicked", () => {

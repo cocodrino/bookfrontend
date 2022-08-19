@@ -1,5 +1,12 @@
 # POKEMON APP
 
+### Importante:
+Para correr el proyecto usando el servidor mock cambiar
+VITE_USE_POKEMON_API_MOCK a true en el archivo .env que incluye
+el proyecto.
+
+Lost tests unitarios automáticamente corren con el mock
+
 ## Herramientas usadas:
 ### Vite
 Se escogió Vite en vez de usar **Create React App** dado que CRA no se considera buena opción en producción y con
@@ -28,3 +35,10 @@ resultados y no tener que hacer peticiones de prueba a la API real
 Aunque no vi necesario usar **React Router** organicé los componentes en la carpeta *pages* porque es la
 estructura que normalmente tendría usando React Router o NextJS y el componente principal se puede
 visualizar como una página
+
+
+### POSIBLES MEJORAS
+- colocar id_author e idAuthor como variables en el .env
+- mover estilos de tailwind a CSS
+- colocar aviso para confirmar antes de borrar
+
