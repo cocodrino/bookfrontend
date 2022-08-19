@@ -18,6 +18,6 @@ export default {
     ".+\\.(css|styl|less|sass|scss|png|jpg|jpeg|ttf|woff|woff2)$":
       "jest-transform-stub",
   },
-  verbose: true,
+  verbose: false,
   setupFilesAfterEnv: ["./setupTest.ts"],
 };

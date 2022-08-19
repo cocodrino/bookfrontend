@@ -5,6 +5,11 @@
 Se escogió Vite en vez de usar **Create React App** dado que CRA no se considera buena opción en producción y con
 Vite se configura desde cero, eligiendo solo los paquetes necesarios
 
+Todos los componentes son creados desde cero y lo único que reusé
+fue mi [proyecto base](https://github.com/cocodrino/base_project_react_vite/tree/main/src)
+que debo actualizarlo porque para este proyecto agregué muchos cambios y mejoras en el linter,
+tailwind y MSW
+
 ### Redux Toolkit
 Aunque por las dimensiones de la app no era tan necesario, ayuda a evitar el pasar callbacks a componentes
 hijos y centraliza el storage en un solo sitio para que los componentes se conecten a él

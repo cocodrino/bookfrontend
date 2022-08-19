@@ -60,10 +60,16 @@ export const pokemonSlice = createSlice({
 });
 
 export const asyncLoadPokemons = () => async (dispatch: AppDispatch) => {
+  toast.info("LOADING POKEMONS....", { toastId: 100 });
   const result: PokemonsResponse = await Axios.get("/", {
     params: { idAuthor: 1 },
   });
 
+  toast.update(100, {
+    render: "pokemons loaded",
+    type: toast.TYPE.SUCCESS,
+    autoClose: 1000,
+  });
   dispatch(pokemonSlice.actions.loadPokemons(result.data));
 };
 
@@ -120,7 +126,6 @@ export const asyncUpdatePokemon =
 
 export const asyncDeletePokemon =
   (id: number) => async (dispatch: AppDispatch) => {
-    console.info("REMOVING ", id);
     if (!id) {
       console.error(`you need the id in order to update pokemon`);
       return;

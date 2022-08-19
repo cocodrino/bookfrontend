@@ -1,37 +1,14 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import PokemonPage from "./PokemonPage";
-import { configureStore } from "@reduxjs/toolkit";
-import pokemonPanelReducer from "../../store/pokemonPanelSlice";
 import renderWithProviders from "../../utils/reduxHelper";
-import pokemonReducer from "../../store/pokemonSlice";
-
-const newPanelStore = configureStore({
-  reducer: {
-    pokemon: pokemonReducer,
-    pokemonPanel: pokemonPanelReducer,
-  },
-  preloadedState: {
-    pokemonPanel: {
-      showPanel: false,
-      selectedPokemon: undefined,
-    },
-  },
-});
+import testStore from "../../store/testStore";
 
 describe("when load Pokemons", () => {
-  it("display correctly existing pokemons", async () => {
-    renderWithProviders(<PokemonPage />, newPanelStore);
-    const displayedPokemons = await screen.findAllByRole("pokemon_row");
-
-    //because API is mocked I can be sure that this always will be this value
-    expect(displayedPokemons.length).toEqual(5);
-  });
+  renderWithProviders(<PokemonPage />, testStore);
 
   it("when type in the search filters must only display matching results", async () => {
-    renderWithProviders(<PokemonPage />, newPanelStore);
-
     const pokemonSearch = screen.getByTestId("pokemon_search");
     expect(pokemonSearch).toBeInTheDocument();
 
@@ -44,6 +21,110 @@ describe("when load Pokemons", () => {
     //because API is mocked I can be sure that this always will be this value
     expect(displayedPokemons.length).toEqual(1);
   });
-});
 
-describe("when update pokemon", () => {});
+  it("when click add, panel to add must be show", async () => {
+    await waitFor(() => {
+      const button = screen.getByTestId("add_pokemon_button");
+      expect(button).toBeInTheDocument();
+
+      fireEvent.click(button);
+      const addPanel = screen.queryAllByText(/Nuevo Pokemon/);
+      expect(addPanel).toHaveLength(1);
+
+      fireEvent.click(button);
+      const addPanelNone = screen.queryAllByText(/Nuevo Pokemon/);
+      expect(addPanelNone).toHaveLength(0);
+    });
+  });
+
+  it("add pokemon must add to the list", async () => {
+    const button = screen.getByTestId("add_pokemon_button");
+    expect(button).toBeInTheDocument();
+
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      const addPanel = screen.queryAllByText(/Nuevo Pokemon/);
+      expect(addPanel).toHaveLength(1);
+    });
+
+    fireEvent.change(screen.getByTestId("name"), {
+      target: { value: "pokelele" },
+    });
+
+    fireEvent.change(screen.getByTestId("image"), {
+      target: { value: "https://assets.pokemon.com/assets/pokelele.png" },
+    });
+
+    fireEvent.click(await screen.findByRole("save_pokemon"));
+
+    await waitFor(async () => {
+      const displayedPokemons = await screen.findAllByRole("pokemon_row");
+      expect(displayedPokemons).toHaveLength(6);
+    });
+
+    await waitFor(() => {
+      const pokemonNamesElement = screen.getAllByRole("pokemon_row_name");
+      const pokemonsNames = pokemonNamesElement.map((v) => v.textContent);
+
+      expect(pokemonsNames.find((name) => name === "pokelele")).not.toBe(
+        undefined
+      );
+    });
+  });
+
+  it("delete a pokemon must remove from list", async () => {
+    const displayedDeleteButtons = await screen.findAllByRole(
+      "pokemon_row_delete_pokemon"
+    );
+
+    fireEvent.click(displayedDeleteButtons[0]);
+
+    await waitFor(async () => {
+      const displayedPokemons = await screen.findAllByRole("pokemon_row");
+      expect(displayedPokemons).toHaveLength(4);
+    });
+  });
+
+  it("edit pokemon must change this in the list", async () => {
+    const displayedModifyButtons = await screen.findAllByRole(
+      "pokemon_row_set_selected_pokemon"
+    );
+
+    fireEvent.click(displayedModifyButtons[0]);
+
+    const addPanelNone = screen.queryAllByText(/Modificar Pokemon/);
+    expect(addPanelNone).toHaveLength(1);
+
+    const nameInput = screen.getByTestId("name");
+    expect(nameInput).toBeInTheDocument();
+
+    expect(nameInput).toHaveValue("charizardss");
+
+    fireEvent.change(nameInput, { target: { value: "charizardo" } });
+
+    const imageInput = screen.getByTestId("image");
+    expect(imageInput).toHaveValue(
+      "https://assets.pokemon.com/assets/cms2/img/pokedex/full/006_f2.png"
+    );
+
+    fireEvent.change(imageInput, {
+      target: { value: "https://assets.pokemon.com/assets/charizardo.png" },
+    });
+
+    fireEvent.click(await screen.findByRole("save_pokemon"));
+
+    await waitFor(() => {
+      const pokemonNamesElement = screen.getAllByRole("pokemon_row_name");
+      const pokemonsNames = pokemonNamesElement.map((v) => v.textContent);
+
+      expect(pokemonsNames.find((name) => name === "charizardo")).not.toBe(
+        undefined
+      );
+
+      expect(pokemonsNames.find((name) => name === "charizardss")).toBe(
+        undefined
+      );
+    });
+  });
+});

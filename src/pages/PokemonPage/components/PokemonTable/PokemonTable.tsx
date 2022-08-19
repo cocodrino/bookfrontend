@@ -40,7 +40,10 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
             role="pokemon_row"
             className="grid grid-cols-1 md:grid-cols-5 mb-20 md:mb-0"
           >
-            <div className="border border-slate-100 flex justify-center items-center text-2xl md:text-lg uppercase md:capitalize font-semibold md:font-normal">
+            <div
+              role="pokemon_row_name"
+              className="border border-slate-100 flex justify-center items-center text-2xl md:text-lg uppercase md:capitalize font-semibold md:font-normal"
+            >
               {pokemon.name}
             </div>
 
@@ -70,6 +73,7 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
 
             <div className="border border-slate-100 flex justify-center items-center text-5xl md:text-lg pt-5 md:pt-0">
               <button
+                role="pokemon_row_set_selected_pokemon"
                 className="px-2 hover:text-violet-600"
                 onClick={() =>
                   dispatch(
@@ -80,6 +84,7 @@ function PokemonTable({ pokemons }: PokemonListItemProps) {
                 <FiEdit3 />
               </button>
               <button
+                role="pokemon_row_delete_pokemon"
                 className="px-2 hover:text-violet-600"
                 onClick={() => {
                   pokemon.id && dispatch(asyncDeletePokemon(pokemon.id));

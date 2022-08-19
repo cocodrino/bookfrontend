@@ -29,8 +29,8 @@ function PokemonAddorModifyPanel() {
   useEffect(() => {
     setName(selectedPokemon?.name || "");
     setUrl(selectedPokemon?.image || "");
-    setDefense(selectedPokemon?.defense || "50");
-    setAttack(selectedPokemon?.attack || "50");
+    setDefense(selectedPokemon?.defense?.toString() || "50");
+    setAttack(selectedPokemon?.attack?.toString() || "50");
   }, [selectedPokemon?.id]);
 
   const isUpdateAction = useMemo(() => {
@@ -52,12 +52,12 @@ function PokemonAddorModifyPanel() {
       ...(selectedPokemon || {}),
       name,
       image: url,
-      attack,
-      defense,
+      attack: +attack,
+      defense: +defense,
     };
     isUpdateAction
-      ? dispatch(asyncSavePokemon(pokemon))
-      : dispatch(asyncUpdatePokemon(pokemon));
+      ? dispatch(asyncUpdatePokemon(pokemon))
+      : dispatch(asyncSavePokemon(pokemon));
 
     onClosePanel();
     e.preventDefault();
@@ -77,6 +77,7 @@ function PokemonAddorModifyPanel() {
 
   return (
     <div
+      data-testid="pokemon_add_or_modify_panel"
       className="pokemon_add_panel bg-slate-200 py-6 px:3 md:px-8 text-lg fixed bottom-0 right-0 w-full"
       ref={ref}
     >

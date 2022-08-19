@@ -2,7 +2,7 @@ import { rest } from "msw";
 import { Pokemon } from "../shared_types/pokemon";
 import { API_URL } from "../utils/Axios";
 
-const pokemonListAnswer = [
+export const pokemonListAnswer = [
   {
     id: 2765,
     name: "charizardss",
@@ -10,8 +10,8 @@ const pokemonListAnswer = [
     attack: 100,
     defense: 100,
     hp: 100,
-    pokemonType: "Unknown",
-    idAuthor: 1,
+    type: "Unknown",
+    id_author: 1,
   },
   {
     id: 2770,
@@ -20,8 +20,8 @@ const pokemonListAnswer = [
     attack: 17,
     defense: 68,
     hp: 89,
-    pokemonType: "water",
-    idAuthor: 1,
+    type: "water",
+    id_author: 1,
   },
   {
     id: 2782,
@@ -31,8 +31,8 @@ const pokemonListAnswer = [
     attack: 41,
     defense: 83,
     hp: 100,
-    pokemonType: "Unknown",
-    idAuthor: 1,
+    type: "Unknown",
+    id_author: 1,
   },
   {
     id: 2783,
@@ -42,8 +42,8 @@ const pokemonListAnswer = [
     attack: 35,
     defense: 80,
     hp: 100,
-    pokemonType: "Base",
-    idAuthor: 1,
+    type: "Base",
+    id_author: 1,
   },
   {
     id: 2786,
@@ -53,22 +53,22 @@ const pokemonListAnswer = [
     attack: 26,
     defense: 100,
     hp: 12,
-    pokemonType: "water",
-    idAuthor: 1,
+    type: "water",
+    id_author: 1,
   },
 ];
 
-let pokemonNextId = 100;
+let pokemonNextId = 100001;
 
 const getPokemonHandler = rest.get(API_URL, async (req, res, ctx) => {
   console.info("call mock getPokemonHandler");
   return res(ctx.status(200), ctx.json(pokemonListAnswer));
 });
 
-const postPokemonHandler = rest.post(API_URL, async (req, res, ctx) => {
+const postPokemonHandler = rest.post(`${API_URL}/`, async (req, res, ctx) => {
   //const newPoke = JSON.parse(req.body);
   const newPoke: Pokemon = await req.json();
-  newPoke.id = 100;
+  newPoke.id = pokemonNextId;
   pokemonNextId += 1;
   return res(ctx.status(200), ctx.json(newPoke));
 });

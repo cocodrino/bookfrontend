@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useMemo, useEffect } from "react";
+import { useState, useLayoutEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { asyncLoadPokemons } from "../../store/pokemonSlice";
 import PokemonTable from "./components/PokemonTable/PokemonTable";
@@ -21,10 +21,6 @@ function PokemonPage() {
     );
   }, [inputValue, pokemons]);
 
-  useEffect(() => {
-    console.info(filteredPokemons);
-  }, [filteredPokemons]);
-
   useLayoutEffect(() => {
     dispatch(asyncLoadPokemons());
   }, [dispatch]);
@@ -43,6 +39,7 @@ function PokemonPage() {
           />
         </div>
         <button
+          data-testid="add_pokemon_button"
           className="add_new_pokemon px-7 py-4 text-xl bg-violet-700 hover:bg-violet-900 rounded-md text-slate-50 mt-10 md:mt-0"
           onClick={() => dispatch(pokemonPanelSlice.actions.togglePanel())}
         >
