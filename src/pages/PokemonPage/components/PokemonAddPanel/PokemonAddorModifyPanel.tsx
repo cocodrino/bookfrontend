@@ -9,6 +9,7 @@ import { pokemonPanelSlice } from "../../../../store/pokemonPanelSlice";
 import useOnClickOutside from "../../../../utils/clickOutside";
 
 import { FiSave, FiX } from "react-icons/fi";
+import isValidUrl from "../../../../utils/isValidUrl";
 
 function PokemonAddorModifyPanel() {
   const [name, setName] = useState("");
@@ -65,6 +66,14 @@ function PokemonAddorModifyPanel() {
   // para ocultar el valor del slider luego de moverlo
   const [showAttackValue, setShowAttackValue] = useState(false);
   const [showDefenseValue, setShowDefenseValue] = useState(false);
+
+  const showURLWarning = useMemo(() => {
+    return url.length >= 2 && !isValidUrl(url);
+  }, [url]);
+
+  const validForm = useMemo(() => {
+    return name !== "" && isValidUrl(url);
+  }, [name, url]);
 
   return (
     <div
@@ -174,10 +183,10 @@ function PokemonAddorModifyPanel() {
 
           <div className="pokemon_add_panel_buttons text-xl pt-12 flex justify-center">
             <button
-              className="cursor-pointer px-5 py-4 text-xl bg-violet-700 hover:bg-violet-900 rounded text-slate-50 mx-3"
+              className="cursor-pointer px-5 py-4 text-xl bg-violet-700 hover:bg-violet-900 rounded text-slate-50 mx-3 disabled:opacity-75 disabled:cursor-not-allowed"
               role="save_pokemon"
               type="submit"
-              disabled={name === "" || url === ""}
+              disabled={!validForm}
             >
               <FiSave className="inline" />{" "}
               <span>{isUpdateAction ? "Actualizar" : "Guardar"}</span>
@@ -190,6 +199,11 @@ function PokemonAddorModifyPanel() {
             </button>
           </div>
         </form>
+        {showURLWarning && (
+          <p className="bottom-5 left-24 md:left-5 md:left-32 px-5 py-5 bg-violet-600 text-violet-100 ml-10 w-96 z-50 absolute">
+            Por favor inserta una URL valida
+          </p>
+        )}
       </div>
     </div>
   );

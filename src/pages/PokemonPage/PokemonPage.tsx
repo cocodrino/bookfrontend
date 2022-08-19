@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect, useMemo, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { asyncLoadPokemons } from "../../store/pokemonSlice";
-import PokemonTable from "./components/PokemonTable";
+import PokemonTable from "./components/PokemonTable/PokemonTable";
 import PokemonAddorModifyPanel from "./components/PokemonAddPanel/PokemonAddorModifyPanel";
 import { Pokemon } from "../../shared_types/pokemon";
 import { pokemonPanelSlice } from "../../store/pokemonPanelSlice";
