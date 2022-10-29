@@ -28,7 +28,7 @@ export const pokemonListAnswer = [
     id: 2782,
     name: "t4est",
     image:
-        "https://as01.epimg.net/diarioas/imagenes/2022/05/29/actualidad/1653826510_995351_1653826595_noticia_normal_recorte1.jpg",
+      "https://as01.epimg.net/diarioas/imagenes/2022/05/29/actualidad/1653826510_995351_1653826595_noticia_normal_recorte1.jpg",
     attack: 41,
     defense: 83,
     hp: 100,
@@ -39,7 +39,7 @@ export const pokemonListAnswer = [
     id: 2783,
     name: "Vulpixb",
     image:
-        "https://archives.bulbagarden.net/media/upload/thumb/6/60/037Vulpix.png/500px-037Vulpix.png",
+      "https://archives.bulbagarden.net/media/upload/thumb/6/60/037Vulpix.png/500px-037Vulpix.png",
     attack: 35,
     defense: 80,
     hp: 100,
@@ -50,7 +50,7 @@ export const pokemonListAnswer = [
     id: 2786,
     name: "Charizard",
     image:
-        "https://e7.pngegg.com/pngimages/373/740/png-clipart-pokemon-x-and-y-charizard-pokemon-universe-drawing-shining-charizard-card.png",
+      "https://e7.pngegg.com/pngimages/373/740/png-clipart-pokemon-x-and-y-charizard-pokemon-universe-drawing-shining-charizard-card.png",
     attack: 26,
     defense: 100,
     hp: 12,
@@ -58,8 +58,6 @@ export const pokemonListAnswer = [
     id_author: 1,
   },
 ];
-
-
 
 export const bookListAnswer = {
   books: [
@@ -259,17 +257,15 @@ const updateBookHandler = rest.put(
 const deleteBookHandler = rest.delete(
   `${API_URL}/book/:id`,
   async (req, res, ctx) => {
-    const book: Book = await req.json();
+    console.log("calling book delete");
     const id = req.params["id"];
+    const response = bookListAnswer.books.find((b) => {
+      return b.id === +id;
+    });
     return res(
       ctx.status(200),
       ctx.json({
-        book: {
-          id,
-          title: book.title,
-          isbn: book.author,
-          authorId: 13,
-        },
+        book: response,
       })
     );
   }

@@ -1,6 +1,7 @@
 import { rest } from "msw";
 import { API_URL } from "../utils/Axios";
 import { Author } from "../shared_types/author";
+import { bookListAnswer } from "./book.handlers";
 
 export const authorListAnswer = {
   authors: [
@@ -114,18 +115,19 @@ const updateAuthorHandler = rest.put(
   }
 );
 
-const deletePokemonHandler = rest.delete(
+const deleteAuthorHandler = rest.delete(
   `${API_URL}/author/:id`,
   async (req, res, ctx) => {
-    const author: Author = await req.json();
+    console.log("calling author delete");
     const id = req.params["id"];
+    const response = authorListAnswer.authors.find((b) => {
+      return b.id === +id;
+    });
+
     return res(
       ctx.status(200),
       ctx.json({
-        author: {
-          id,
-          ...author,
-        },
+        author: response,
       })
     );
   }
@@ -135,5 +137,5 @@ export const authorHandlers = [
   getAuthorsHandler,
   postAuthorHandler,
   updateAuthorHandler,
-  deletePokemonHandler,
+  deleteAuthorHandler,
 ];

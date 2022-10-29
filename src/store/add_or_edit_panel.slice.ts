@@ -18,10 +18,6 @@ export const addorEditPanelSlice = createSlice({
   name: "pokemonPanel",
   initialState,
   reducers: {
-    setSelectedBook: (state, action: PayloadAction<Book>) => {
-      return { ...state, panelOption: "book", selectedBook: action.payload };
-    },
-
     togglePanel: (state, action: PayloadAction<AddOrEditPanelParams>) => {
       return state.panelOption === "none" ? action.payload : initialState;
     },

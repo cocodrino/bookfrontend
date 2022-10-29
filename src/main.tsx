@@ -9,11 +9,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 console.log(
-  `import.meta.env.VITE_USE_POKEMON_API_MOCK is ${
-    import.meta.env.VITE_USE_POKEMON_API_MOCK
-  }`
+  `import.meta.env.VITE_USE_API_MOCK is ${import.meta.env.VITE_USE_API_MOCK}`
 );
-if (import.meta.env.VITE_USE_POKEMON_API_MOCK === "true") {
+if (import.meta.env.VITE_USE_API_MOCK === "true") {
   console.info("USING MOCK API, YOU CAN CHANGE THIS IN THE .ENV FILE");
   mswWorker
     .start()

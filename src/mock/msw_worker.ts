@@ -1,5 +1,5 @@
-import { bookHandlers } from "./book.handlers";
 import { setupWorker, SetupWorkerApi } from "msw";
+import { handlers } from "./handlers";
 
-const mswWorker: SetupWorkerApi = setupWorker(...bookHandlers);
+const mswWorker: SetupWorkerApi = setupWorker(...handlers);
 export default mswWorker;

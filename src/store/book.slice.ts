@@ -122,7 +122,7 @@ export const asyncDeleteBook =
       return;
     }
     try {
-      const response: DeleteBookResponse = await Axios.delete(`/${id}`);
+      const response: DeleteBookResponse = await Axios.delete(`/book/${id}`);
 
       if (response.status == 200) {
         dispatch(bookSlice.actions.deleteBook(response.data.book));

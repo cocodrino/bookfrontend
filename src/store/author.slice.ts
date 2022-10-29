@@ -121,13 +121,15 @@ export const asyncUpdateAuthor =
   };
 
 export const asyncDeleteAuthor =
-  (id: number) => async (dispatch: AppDispatch) => {
+  (id?: number) => async (dispatch: AppDispatch) => {
     if (!id) {
       console.error(`you need the id in order to update pokemon`);
       return;
     }
     try {
-      const response: DeleteAuthorResponse = await Axios.delete(`/${id}`);
+      const response: DeleteAuthorResponse = await Axios.delete(
+        `/author/${id}`
+      );
 
       if (response.status == 200) {
         dispatch(authorSlice.actions.deleteAuthor(response.data.author));
@@ -139,7 +141,7 @@ export const asyncDeleteAuthor =
       }
     } catch (e) {
       toast.error("Error. Please try again");
-      console.error(`error saving author ${e}`);
+      console.error(`error deleting author ${e}`);
     }
   };
 

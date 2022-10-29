@@ -2,10 +2,10 @@ import axios, { AxiosInstance } from "axios";
 
 //TODO fix vite error jest
 //const apiUrl: string = import.meta.env.VITE_POKEMON_API;
-const API_URL = "https://gitlab.com/clagccs/bookbackend";
-
+const API_URL = "https://bookbackend.onrender.com";
+//https://bookbackend.onrender.com/
 if (!API_URL) {
-  throw Error("please set VITE_POKEMON_API first");
+  throw Error("please set VITE_API first");
 }
 
 const Axios: AxiosInstance = axios.create({
