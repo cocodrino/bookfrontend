@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import pokemonReducer from "./pokemonSlice";
 import pokemonPanelReducer from "./pokemonPanelSlice";
-import { pokemonListAnswer } from "../mock/handlers";
+import { pokemonListAnswer } from "../mock/book.handlers";
 
 const testStore = configureStore({
   reducer: {

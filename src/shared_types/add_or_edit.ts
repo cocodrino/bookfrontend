@@ -1,0 +1,1 @@
+export type AddOrEditPanelOption = "book" | "author" | "none";

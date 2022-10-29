@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Pokemon } from "../../../../shared_types/pokemon";
+import { Pokemons } from "../../../../shared_types/pokemon";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import {
   asyncSavePokemon,
@@ -45,7 +45,7 @@ function PokemonAddorModifyPanel() {
 
   const onSubmit = (e: SyntheticEvent) => {
     //if pokemon exist type hp and author is override, else set default values
-    const pokemon: Pokemon = {
+    const pokemon: Pokemons = {
       type: "undefined",
       hp: 100,
       id_author: 1,

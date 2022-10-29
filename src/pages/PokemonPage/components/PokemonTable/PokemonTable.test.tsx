@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import testStore from "../../../../store/testStore";
 import renderWithProviders from "../../../../utils/reduxHelper";
 import PokemonTable from "./PokemonTable";
-import { pokemonListAnswer } from "../../../../mock/handlers";
+import { pokemonListAnswer } from "../../../../mock/book.handlers";
 
 describe("when load Pokemons", () => {
   beforeEach(() => {

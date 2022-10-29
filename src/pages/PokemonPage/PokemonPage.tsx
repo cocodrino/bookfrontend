@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { asyncLoadPokemons } from "../../store/pokemonSlice";
 import PokemonTable from "./components/PokemonTable/PokemonTable";
 import PokemonAddorModifyPanel from "./components/PokemonAddPanel/PokemonAddorModifyPanel";
-import { Pokemon } from "../../shared_types/pokemon";
+import { Pokemons } from "../../shared_types/pokemon";
 import { pokemonPanelSlice } from "../../store/pokemonPanelSlice";
 
 function PokemonPage() {
@@ -12,7 +12,7 @@ function PokemonPage() {
   const showAddEditPokemonPanel = useAppSelector(
     (state) => state.pokemonPanel.showPanel
   );
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | undefined>();
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemons | undefined>();
 
   const dispatch = useAppDispatch();
   const filteredPokemons = useMemo(() => {

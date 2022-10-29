@@ -40,7 +40,7 @@ visualizar como una página
 
 
 ### POSIBLES MEJORAS
-- colocar id_author e idAuthor como variables en el .env
-- mover estilos de tailwind a CSS
-- colocar aviso para confirmar antes de borrar
+- inconsistencia formato nombre archivos (cammel case con snake case)
+- es posible refactorizar a modo de reducir código similar donde cambia los tipos,
+usando genéricos, esto aplica acá porque los endpoints de book y author tienen estructuras muy similares
 

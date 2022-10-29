@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Pokemon } from "../shared_types/pokemon";
+import { Pokemons } from "../shared_types/pokemon";
 
 export interface PokemonPanelState {
-  selectedPokemon?: Pokemon;
+  selectedPokemon?: Pokemons;
   showPanel: boolean;
 }
 
@@ -15,7 +15,7 @@ export const pokemonPanelSlice = createSlice({
   name: "pokemonPanel",
   initialState,
   reducers: {
-    setSelectedPokemon: (state, action: PayloadAction<Pokemon>) => {
+    setSelectedPokemon: (state, action: PayloadAction<Pokemons>) => {
       return { ...state, showPanel: true, selectedPokemon: action.payload };
     },
 

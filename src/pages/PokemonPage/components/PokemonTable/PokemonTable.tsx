@@ -1,4 +1,4 @@
-import { Pokemon } from "../../../../shared_types/pokemon";
+import { Pokemons } from "../../../../shared_types/pokemon";
 import DefaultPokemonImage from "../../../../static/default.jpeg";
 import { useAppDispatch } from "../../../../store/hooks";
 import { pokemonPanelSlice } from "../../../../store/pokemonPanelSlice";
@@ -7,7 +7,7 @@ import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import isValidUrl from "../../../../utils/isValidUrl";
 
 interface PokemonListItemProps {
-  pokemons: Pokemon[];
+  pokemons: Pokemons[];
 }
 
 function PokemonTable({ pokemons }: PokemonListItemProps) {

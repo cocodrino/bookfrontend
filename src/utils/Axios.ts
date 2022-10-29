@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 //TODO fix vite error jest
 //const apiUrl: string = import.meta.env.VITE_POKEMON_API;
-const API_URL = "https://bp-pokemons.herokuapp.com";
+const API_URL = "https://gitlab.com/clagccs/bookbackend";
 
 if (!API_URL) {
   throw Error("please set VITE_POKEMON_API first");

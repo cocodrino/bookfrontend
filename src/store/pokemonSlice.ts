@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Pokemon } from "../shared_types/pokemon";
+import { Pokemons } from "../shared_types/pokemon";
 import { AppDispatch } from "./store";
 import { Axios } from "../utils/Axios";
 import {
@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { pokemonPanelSlice } from "./pokemonPanelSlice";
 
 export interface PokemonState {
-  pokemons: Pokemon[];
+  pokemons: Pokemons[];
 }
 
 const initialState: PokemonState = {
@@ -24,11 +24,11 @@ export const pokemonSlice = createSlice({
   name: "pokemons",
   initialState,
   reducers: {
-    loadPokemons: (state, action: PayloadAction<Pokemon[]>) => {
+    loadPokemons: (state, action: PayloadAction<Pokemons[]>) => {
       return { pokemons: action.payload };
     },
 
-    addPokemon: (state, action: PayloadAction<Pokemon>) => {
+    addPokemon: (state, action: PayloadAction<Pokemons>) => {
       // Redux Toolkit usa Immer, que detecta cambios en el estado y produce un nuevo estado
       // inmutable, personalmente casi nunca lo uso, pero coloco el ejemplo
       state.pokemons.push(action.payload);
@@ -40,7 +40,7 @@ export const pokemonSlice = createSlice({
         ),
       };
     },
-    updatePokemon: (state, action: PayloadAction<Pokemon>) => {
+    updatePokemon: (state, action: PayloadAction<Pokemons>) => {
       return {
         pokemons: state.pokemons.map((pokemon) => {
           if (pokemon.id === action.payload.id) return action.payload;
@@ -74,7 +74,7 @@ export const asyncLoadPokemons = () => async (dispatch: AppDispatch) => {
 };
 
 export const asyncSavePokemon =
-  (pokemon: Pokemon) => async (dispatch: AppDispatch) => {
+  (pokemon: Pokemons) => async (dispatch: AppDispatch) => {
     try {
       pokemon.idAuthor = 1;
 
@@ -98,7 +98,7 @@ export const asyncSavePokemon =
   };
 
 export const asyncUpdatePokemon =
-  (pokemon: Pokemon) => async (dispatch: AppDispatch) => {
+  (pokemon: Pokemons) => async (dispatch: AppDispatch) => {
     if (!pokemon.id) {
       console.error(`you need the id in order to update pokemon ${pokemon}`);
       return;
