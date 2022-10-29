@@ -12,5 +12,6 @@ export interface Book {
 
 export type BooksResponse = AxiosResponse<{ books: Book[] }>;
 export type PostBookResponse = AxiosResponse<{ book: Book }>;
+export type GetBookResponse = AxiosResponse<{ book: Book }>;
 export type PutBookResponse = AxiosResponse<{ book: Book }>;
 export type DeleteBookResponse = AxiosResponse<{ book: Book }>;

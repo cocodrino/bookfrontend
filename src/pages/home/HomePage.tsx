@@ -1,17 +1,20 @@
 import { CellGrid } from "./components/CellGrid";
 import AddOrEditPanel from "../../shared.components/AddOrEditPanel";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { asyncLoadBooks } from "../../store/book.slice";
+import { Grid } from "./components/Grid";
 
 export const HomePage = () => {
-  return (
-      <div>
-        <div className="mx-10 mt-4 grid grid-cols-8 gap-2">
-          {Array(20)
-              .fill(true)
-              .map((v, i) => (
-                  <CellGrid key={`cg-${i}`} />
-              ))}
-        </div>
-      </div>
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.book.books);
+  useEffect(() => {
+    dispatch(asyncLoadBooks());
+  }, []);
 
+  return (
+    <div>
+      <Grid books={data} />
+    </div>
   );
 };

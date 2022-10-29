@@ -244,7 +244,7 @@ const updateBookHandler = rest.put(
       ctx.status(200),
       ctx.json({
         book: {
-          id: 17,
+          id: book.id,
           title: book.title,
           isbn: book.isbn,
           authorId: 13,

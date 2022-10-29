@@ -4,7 +4,7 @@ correr con `yarn dev`
 
 ### Importante:
 Para correr el proyecto usando el servidor mock cambiar
-VITE_USE_POKEMON_API_MOCK a true en el archivo .env que incluye
+VITE_API_MOCK a true en el archivo .env que incluye
 el proyecto.
 
 Lost tests unitarios automáticamente corren con el mock
@@ -14,10 +14,7 @@ Lost tests unitarios automáticamente corren con el mock
 Se escogió Vite en vez de usar **Create React App** dado que CRA no se considera buena opción en producción y con
 Vite se configura desde cero, eligiendo solo los paquetes necesarios
 
-Todos los componentes son creados desde cero y lo único que reusé
-fue mi [proyecto base](https://github.com/cocodrino/base_project_react_vite/tree/main/src)
-que debo actualizarlo porque para este proyecto agregué muchos cambios y mejoras en el linter,
-tailwind y MSW
+
 
 ### Redux Toolkit
 Aunque por las dimensiones de la app no era tan necesario, ayuda a evitar el pasar callbacks a componentes
@@ -27,7 +24,6 @@ hijos y centraliza el storage en un solo sitio para que los componentes se conec
 Aunque no tengo mucho tiempo usando tailwind considero que permite prototipar más rápido que en CSS clásico, aunque hubiese querido pasar los estilos a
 CCS para que quedara más limpio el HTML. Aun así intenté colocar el plus de hacer el **diseño responsive** 
 
-![imagen](capture.png)
 
 ### Jest y MSW
 Para realizar pruebas unitarias se realizó un mock de la API en MSW, lo que permite siempre tener los mismos
@@ -40,7 +36,8 @@ visualizar como una página
 
 
 ### POSIBLES MEJORAS
-- inconsistencia formato nombre archivos (cammel case con snake case)
+- inconsistencia formato nombre archivos (camel case con snake case)
 - es posible refactorizar a modo de reducir código similar donde cambia los tipos,
 usando genéricos, esto aplica acá porque los endpoints de book y author tienen estructuras muy similares
+- **Usar algo tipo final form** para manejar el estado del formulario de crear/editar y simplificar
 

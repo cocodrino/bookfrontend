@@ -1,39 +1,65 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Book, GetBookResponse } from "../../shared_types/book";
+import { Axios } from "../../utils/Axios";
+import { useAppDispatch } from "../../store/hooks";
+import { asyncDeleteBook } from "../../store/book.slice";
+import {
+  AddOrEditPanelParams,
+  addorEditPanelSlice,
+} from "../../store/add_or_edit_panel.slice";
+import { BookDetailContent } from "./BookDetailContent";
 
 export const BookDetailPage = () => {
   const { bookId } = useParams();
-  return (
-    <div>
-      vista detalle {bookId}
-      <div className="grid grid-cols-2 h-screen mx-5">
-        <div className="flex justify-center ">
-          <img src="https://via.placeholder.com/400x400.png" alt="book-image" />
-        </div>
-        <div>
-          <p className="text-3xl">Description</p>
+  const [bookDetails, setBookDetails] = useState<Book | undefined>();
+  const [error, setError] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </p>
+  const loadBook = (id: number) => {
+    setError(false);
+    Axios.get(`/book/${id}`)
+      .then((response: GetBookResponse) => {
+        setBookDetails(response.data.book);
+      })
+      .catch((e) => {
+        setError(true);
+      });
+  };
 
-          <div className="pl-10 flex items-center justify-center mt-20">
-            <button className="text-lg py-3 px-4 bg-amber-400 hover:cursor-pointer text-slate-800">
-              Edit Book
-            </button>
-            <button className="ml-3 text-lg py-3 px-4 bg-red-600 hover:cursor-pointer text-slate-100">
-              Delete Book
-            </button>
-          </div>
-        </div>
+  useEffect(() => {
+    if (bookId) loadBook(+bookId);
+  }, [bookId]);
+
+  const onDelete = () => {
+    if (bookDetails && bookDetails.id)
+      dispatch(asyncDeleteBook(bookDetails.id, navigate));
+  };
+
+  const onEditBook = () => {
+    const params: AddOrEditPanelParams = {
+      selectedBook: bookDetails,
+      panelOption: "book",
+    };
+    dispatch(addorEditPanelSlice.actions.togglePanel(params));
+  };
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center text-3xl">
+        Book not found
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <BookDetailContent
+        book={bookDetails}
+        onDelete={onDelete}
+        onEditBook={onEditBook}
+      />
+    </>
   );
 };

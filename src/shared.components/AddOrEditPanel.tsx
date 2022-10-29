@@ -7,14 +7,16 @@ import useOnClickOutside from "../utils/clickOutside";
 import { toast } from "react-toastify";
 import { asyncSaveBook, asyncUpdateBook } from "../store/book.slice";
 import { asyncSaveAuthor, asyncUpdateAuthor } from "../store/author.slice";
+import { useNavigate } from "react-router-dom";
 
 const AddOrEditPanel = () => {
   const panelState = useAppSelector((state) => state.panel);
   const dispatch = useAppDispatch();
   const panelRef = useRef(null);
+  const navigate = useNavigate();
 
-  const [author, setAuthor] = useState<Partial<Author> | undefined>();
-  const [book, setBook] = useState<Partial<Book> | undefined>();
+  const [author, setAuthor] = useState<Partial<Author>>({});
+  const [book, setBook] = useState<Partial<Book>>({});
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -32,6 +34,7 @@ const AddOrEditPanel = () => {
   }, [panelState]);
 
   const onSaveChanges = () => {
+    debugger
     if (panelState.panelOption === "book") {
       if (editOrNew === "new") {
         if (book?.title && book.isbn && author?.firstname && author.lastname) {
@@ -45,7 +48,7 @@ const AddOrEditPanel = () => {
       }
       //panelOption === "book"
       if (editOrNew === "edit" && book) {
-        dispatch(asyncUpdateBook(book));
+        dispatch(asyncUpdateBook(book, navigate));
       }
     }
 
@@ -96,11 +99,7 @@ const AddOrEditPanel = () => {
                       value={book?.title}
                       onChange={(e) => {
                         setBook((b) => {
-                          if (b)
-                            return {
-                              ...b,
-                              title: e.target.value,
-                            };
+                          return { ...b, title: e.target.value };
                         });
                       }}
                       type="text"
@@ -115,11 +114,7 @@ const AddOrEditPanel = () => {
                       value={book?.isbn}
                       onChange={(e) => {
                         setBook((b) => {
-                          if (b)
-                            return {
-                              ...b,
-                              isbn: e.target.value,
-                            };
+                          return { ...b, isbn: e.target.value };
                         });
                       }}
                       className="ml-2 text-slate-800"
@@ -130,50 +125,44 @@ const AddOrEditPanel = () => {
                 </div>
               )}
 
-              <div className="pl-3">
-                <div className="text-xl mt-2 mb-3">Author details</div>
-                <div className="mb-3">
-                  <label className="mr-4" htmlFor="authorFirstName">
-                    Author Name
-                  </label>
-                  <input
-                    value={author?.firstname}
-                    onChange={(e) => {
-                      setAuthor((a) => {
-                        if (a)
-                          return {
-                            ...a,
-                            firstname: e.target.value,
-                          };
-                      });
-                    }}
-                    type="text"
-                    className="ml-7 text-slate-800"
-                    name="authorFirstName"
-                  />
-                </div>
+              {(panelState.panelOption === "author" || editOrNew === "new") && (
+                <div className="pl-3">
+                  <div className="text-xl mt-2 mb-3">Author details</div>
+                  <div className="mb-3">
+                    <label className="mr-4" htmlFor="authorFirstName">
+                      Author Name
+                    </label>
+                    <input
+                      value={author?.firstname}
+                      onChange={(e) => {
+                        setAuthor((a) => {
+                          return { ...a, firstname: e.target.value };
+                        });
+                      }}
+                      type="text"
+                      className="ml-7 text-slate-800"
+                      name="authorFirstName"
+                    />
+                  </div>
 
-                <div>
-                  <label className="mr-4" htmlFor="authorLastName">
-                    Author Lastname
-                  </label>
-                  <input
-                    className="text-slate-800"
-                    value={author?.lastname}
-                    onChange={(e) => {
-                      setAuthor((a) => {
-                        if (a)
-                          return {
-                            ...a,
-                            lastname: e.target.value,
-                          };
-                      });
-                    }}
-                    type="text"
-                    name="bookISBN"
-                  />
+                  <div>
+                    <label className="mr-4" htmlFor="authorLastName">
+                      Author Lastname
+                    </label>
+                    <input
+                      className="text-slate-800"
+                      value={author?.lastname}
+                      onChange={(e) => {
+                        setAuthor((a) => {
+                          return { ...a, lastname: e.target.value };
+                        });
+                      }}
+                      type="text"
+                      name="bookISBN"
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="pl-10 flex items-center">
                 <button

@@ -98,9 +98,11 @@ export const asyncUpdateAuthor =
       return;
     }
     try {
+      const authorReq = { ...author };
+      delete authorReq.id;
       const response: PutAuthorResponse = await Axios.put(
         `/author/${author.id}`,
-        author
+        authorReq
       );
 
       if (response.status == 200 && response.data.author) {
@@ -127,6 +129,7 @@ export const asyncDeleteAuthor =
       return;
     }
     try {
+      toast.info("deleting author...");
       const response: DeleteAuthorResponse = await Axios.delete(
         `/author/${id}`
       );
