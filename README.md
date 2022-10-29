@@ -1,4 +1,6 @@
 # POKEMON APP
+instalar dependencias primero con `yarn add` o `npm install`
+correr con `yarn dev`
 
 ### Importante:
 Para correr el proyecto usando el servidor mock cambiar
