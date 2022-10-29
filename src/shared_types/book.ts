@@ -6,7 +6,7 @@ export interface Book {
   title: string;
   isbn: string;
 
-  authorId: number;
+  authorId?: number;
   author?: Author;
 }
 

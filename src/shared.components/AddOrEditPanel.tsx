@@ -4,22 +4,25 @@ import { addorEditPanelSlice } from "../store/add_or_edit_panel.slice";
 import { Author } from "../shared_types/author";
 import { Book } from "../shared_types/book";
 import useOnClickOutside from "../utils/clickOutside";
+import { toast } from "react-toastify";
+import { asyncSaveBook, asyncUpdateBook } from "../store/book.slice";
+import { asyncSaveAuthor, asyncUpdateAuthor } from "../store/author.slice";
 
 const AddOrEditPanel = () => {
   const panelState = useAppSelector((state) => state.panel);
   const dispatch = useAppDispatch();
   const panelRef = useRef(null);
 
-  const [author, setAuthor] = useState<Author | undefined>();
-  const [book, setBook] = useState<Book | undefined>();
+  const [author, setAuthor] = useState<Partial<Author> | undefined>();
+  const [book, setBook] = useState<Partial<Book> | undefined>();
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
   };
 
   useEffect(() => {
-    if (panelState.selectedBook) setBook(panelState.selectedBook);
-    if (panelState.selectedAuthor) setAuthor(panelState.selectedAuthor);
+    setBook(panelState.selectedBook || {});
+    setAuthor(panelState.selectedAuthor || {});
   }, [panelState.selectedAuthor, panelState.selectedBook]);
 
   const editOrNew: "edit" | "new" = useMemo(() => {
@@ -27,6 +30,39 @@ const AddOrEditPanel = () => {
       ? "edit"
       : "new";
   }, [panelState]);
+
+  const onSaveChanges = () => {
+    if (panelState.panelOption === "book") {
+      if (editOrNew === "new") {
+        if (book?.title && book.isbn && author?.firstname && author.lastname) {
+          const data = { ...book, author: { ...author } };
+          dispatch(asyncSaveBook(data as Book));
+        } else {
+          toast.info(
+            "check you fill all required fields like book and author details"
+          );
+        }
+      }
+      //panelOption === "book"
+      if (editOrNew === "edit" && book) {
+        dispatch(asyncUpdateBook(book));
+      }
+    }
+
+    if (panelState.panelOption === "author") {
+      if (editOrNew == "new") {
+        if (author?.firstname && author?.lastname) {
+          dispatch(asyncSaveAuthor(author as Author));
+        } else {
+          toast.info("check that all required fields are filled");
+        }
+      }
+
+      if (editOrNew == "edit" && author) {
+        dispatch(asyncUpdateAuthor(author));
+      }
+    }
+  };
 
   const resetPanel = () => {
     dispatch(addorEditPanelSlice.actions.clearPanelData());
@@ -140,7 +176,10 @@ const AddOrEditPanel = () => {
               </div>
 
               <div className="pl-10 flex items-center">
-                <button className="text-lg py-3 px-4 bg-amber-400 hover:cursor-pointer text-slate-800">
+                <button
+                  onClick={onSaveChanges}
+                  className="text-lg py-3 px-4 bg-amber-400 hover:cursor-pointer text-slate-800"
+                >
                   Save
                 </button>
                 <button
