@@ -76,7 +76,7 @@ const AddOrEditPanel = () => {
     <>
       {panelState.panelOption !== "none" && (
         <div
-          style={{ position: "relative", top: -40 }}
+          style={{ position: "relative", top: -60 }}
           className="text-xl lg:text-base bg-slate-900 text-slate-300 px-5 py-5 pb-10 xl:border xl:border-y-1 xl:border-slate-600"
           ref={panelRef}
         >
@@ -95,14 +95,14 @@ const AddOrEditPanel = () => {
                     </label>
                     <input
                       className="text-slate-800 pl-4"
-                      value={book?.title}
+                      value={book?.title || ""}
                       onChange={(e) => {
                         setBook((b) => {
                           return { ...b, title: e.target.value };
                         });
                       }}
                       type="text"
-                      name="bookName"
+                      id="bookName"
                     />
                   </div>
                   <div>
@@ -110,7 +110,7 @@ const AddOrEditPanel = () => {
                       Book ISBN
                     </label>
                     <input
-                      value={book?.isbn}
+                      value={book?.isbn || ""}
                       onChange={(e) => {
                         setBook((b) => {
                           return { ...b, isbn: e.target.value };
@@ -118,7 +118,7 @@ const AddOrEditPanel = () => {
                       }}
                       className="ml-2 text-slate-800 pl-4"
                       type="text"
-                      name="bookISBN"
+                      id="bookISBN"
                     />
                   </div>
                 </div>
@@ -128,11 +128,14 @@ const AddOrEditPanel = () => {
                 <div className="pl-3">
                   <div className="text-xl mt-2 mb-3">Author details</div>
                   <div className="mb-3">
-                    <label className="mr-4 block md:inline" htmlFor="authorFirstName">
+                    <label
+                      className="mr-4 block md:inline"
+                      htmlFor="authorFirstName"
+                    >
                       Author Name
                     </label>
                     <input
-                      value={author?.firstname}
+                      value={author?.firstname || ""}
                       onChange={(e) => {
                         setAuthor((a) => {
                           return { ...a, firstname: e.target.value };
@@ -140,24 +143,27 @@ const AddOrEditPanel = () => {
                       }}
                       type="text"
                       className="xl:ml-7 text-slate-800 pl-4"
-                      name="authorFirstName"
+                      id="authorFirstName"
                     />
                   </div>
 
                   <div>
-                    <label className="mr-4 block md:inline" htmlFor="authorLastName">
+                    <label
+                      className="mr-4 block md:inline"
+                      htmlFor="authorLastName"
+                    >
                       Author Lastname
                     </label>
                     <input
                       className="text-slate-800 pl-4"
-                      value={author?.lastname}
+                      value={author?.lastname || ""}
                       onChange={(e) => {
                         setAuthor((a) => {
                           return { ...a, lastname: e.target.value };
                         });
                       }}
                       type="text"
-                      name="bookISBN"
+                      id="authorLastName"
                     />
                   </div>
                 </div>

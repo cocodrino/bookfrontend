@@ -2,10 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import { bookListAnswer } from "../mock/book.handlers";
 import bookReducer from "./book.slice";
 import authorReducer from "./author.slice";
-import panelReducer from "./add_or_edit_panel.slice";
+import panelReducer, { AddOrEditPanelParams } from "./add_or_edit_panel.slice";
 import { authorListAnswer } from "../mock/author.handlers";
+import { AddOrEditPanelOption } from "../shared_types/add_or_edit";
 
-const testStore = configureStore({
+const panel: AddOrEditPanelParams = {
+  panelOption: "none" as AddOrEditPanelOption,
+  selectedAuthor: undefined,
+  selectedBook: undefined,
+};
+
+export const basicStore = {
   reducer: {
     book: bookReducer,
     author: authorReducer,
@@ -18,10 +25,10 @@ const testStore = configureStore({
     author: {
       authors: authorListAnswer.authors,
     },
-    panel: {
-      panelOption: "none",
-    },
+    panel,
   },
-});
+};
+
+const testStore = configureStore(basicStore);
 
 export default testStore;

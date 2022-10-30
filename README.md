@@ -1,5 +1,5 @@
 # ZAREGO ENTRY FRONTEND
-instalar dependencias primero con `yarn add` o `npm install`
+Instalar dependencias primero con `yarn add` o `npm install`
 correr con `yarn dev`
 
 ### Importante:
@@ -22,8 +22,9 @@ hijos y centraliza el storage en un solo sitio para que los componentes se conec
 ### Tailwind
 
 ### Jest y MSW
-Para realizar pruebas unitarias se realizó un mock de la API en MSW, lo que permite siempre tener los mismos
-resultados y no tener que hacer peticiones de prueba a la API real
+Para realizar pruebas unitarias se realizó un mock de la API en MSW (ubicado en *src/mock/{book,author}.handlers.ts*), lo que permite siempre tener los mismos
+resultados y no tener que hacer peticiones de prueba a la API real 
+Los tests se ubican junto al componente que testean
 
 
 
@@ -32,8 +33,8 @@ resultados y no tener que hacer peticiones de prueba a la API real
 - es posible refactorizar a modo de reducir código similar donde cambia los tipos,
 usando genéricos, esto aplica acá porque los endpoints de book y author tienen estructuras muy similares
 - **Usar algo tipo final form** para manejar el estado del formulario de crear/editar y simplificar
-- en la misma carpeta de algunos componnts se pueden encontrar test unitarios, configurados para usar data de mock en los tests,
-faltó agregar más test unitarios, en *src/pages/authors.page/components/AuthorList.test.tsx* se puede
-encontrar tests que usan los mocks ubicados en *src/mock/{book,author}.handlers.ts*
+
+- faltó agregar más test unitarios,  AddOrEditPanel.test.tsx (src/shared.components/AddOrEditPanel.test.tsx) posee la mayoría de los tests dado que es un 
+componente que tiene bastante lógica y debe renderizarse de diversas formas de acuerdo a la data que reciba
 
 

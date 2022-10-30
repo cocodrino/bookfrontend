@@ -35,13 +35,13 @@ export const bookSlice = createSlice({
     },
     removeBook: (state, action: PayloadAction<Book>) => {
       return {
-        books: state.books.filter((book) => book.isbn !== action.payload.isbn),
+        books: state.books.filter((book) => book.id !== action.payload.id),
       };
     },
     updateBook: (state, action: PayloadAction<Book>) => {
       return {
         books: state.books.map((book) => {
-          if (book.isbn === action.payload.isbn) return action.payload;
+          if (book.id === action.payload.id) return action.payload;
           return book;
         }),
       };
@@ -112,7 +112,11 @@ export const asyncUpdateBook =
       );
 
       if (response.status == 200 && response.data.book) {
-        dispatch(bookSlice.actions.updateBook(response.data.book));
+        //join book with response in order to keep the authors because the put endpoint dont send
+        //you the authors
+        dispatch(
+          bookSlice.actions.updateBook({ ...book, ...response.data.book })
+        );
         toast("book updated");
         navigate("/");
 
