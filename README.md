@@ -32,7 +32,7 @@ resultados y no tener que hacer peticiones de prueba a la API real
 - es posible refactorizar a modo de reducir código similar donde cambia los tipos,
 usando genéricos, esto aplica acá porque los endpoints de book y author tienen estructuras muy similares
 - **Usar algo tipo final form** para manejar el estado del formulario de crear/editar y simplificar
-- en la misma carpeta de algunos components se pueden encontrar test unitarios, configurados para usar data de mock en los tests,
+- en la misma carpeta de algunos componnts se pueden encontrar test unitarios, configurados para usar data de mock en los tests,
 faltó agregar más test unitarios, en *src/pages/authors.page/components/AuthorList.test.tsx* se puede
 encontrar tests que usan los mocks ubicados en *src/mock/{book,author}.handlers.ts*
 
