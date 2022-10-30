@@ -18,8 +18,13 @@ export const BookDetailContent = (props: BookDetailContentProps) => {
             />
           </div>
           <div>
-            <p className="text-3xl xl:text-4xl mt-5 lg:mt-0">{props.book?.title}</p>
-            <p className="text-2xl">
+            <p className="text-5xl mt-5 lg:mt-0 text-center xl:text-left">
+              {props.book?.title}
+            </p>
+            <p className="text-2xl mt-5 lg:mt-0 text-center xl:text-left">
+              ISBN: {props.book?.isbn}
+            </p>
+            <p className="text-2xl text-center xl:text-left">
               {props.book.author?.firstname} {props.book.author?.lastname}
             </p>
             <p className="text-xl mt-10">Description:</p>
