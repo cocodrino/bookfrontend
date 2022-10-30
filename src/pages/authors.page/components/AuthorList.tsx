@@ -23,14 +23,14 @@ export const AuthorList = (props: AuthorListProps) => {
   };
 
   return (
-    <ol className="w-3/6 divide-y divide-dashed">
+    <ol className="pt-5 w-full md:w-3/6 divide-y divide-dashed">
       {props?.authors?.map((author) => (
         <li
           role="author_row"
-          className="flex flex-row py-3 hover:bg-slate-200"
+          className="flex flex-col md:flex-row py-3 hover:bg-slate-200 my-3"
           key={`li-${author.firstname}-${author.lastname}`}
         >
-          <div className="grow flex items-center ml-5">
+          <div className="grow flex items-center ml-5 text-2xl md:text-base mb-2 md:mb-0">
             {author.firstname} {author.lastname}
           </div>
 

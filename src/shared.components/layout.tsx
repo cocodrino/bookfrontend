@@ -45,7 +45,7 @@ export const Layout: React.FC<any> = ({ children }) => {
         </div>
       </div>
       <main>
-        <div className="ml-10 mt-3 flex flex-row">
+        <div className="ml-10 mt-3 flex flex-row text-xl xl:text-base">
           <p
             className="hover:cursor-pointer hover:underline text-slate-600"
             onClick={() => {

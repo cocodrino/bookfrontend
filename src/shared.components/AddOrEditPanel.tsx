@@ -78,7 +78,7 @@ const AddOrEditPanel = () => {
       {panelState.panelOption !== "none" && (
         <div
           style={{ position: "relative", top: -40 }}
-          className="bg-slate-900 text-slate-300 px-5 py-5 pb-10 border border-y-1 border-slate-600"
+          className="text-xl lg:text-base bg-slate-900 text-slate-300 px-5 py-5 pb-10 xl:border xl:border-y-1 xl:border-slate-600"
           ref={panelRef}
         >
           <form onSubmit={onSubmit}>
@@ -86,12 +86,12 @@ const AddOrEditPanel = () => {
               {editOrNew === "new" ? "Add New" : "Edit"}{" "}
               {panelState.panelOption === "book" ? "Book" : "Author"}
             </span>
-            <div className="grid grid-cols-3 divide-x divide-solid divide-slate-600">
+            <div className="md:pl-20 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 lg:divide-x lg:divide-solid lg:divide-slate-600">
               {panelState.panelOption === "book" && (
                 <div className="pl-3">
                   <div className="text-xl mt-2 mb-3">Book details</div>
                   <div className="mb-3">
-                    <label className="mr-4" htmlFor="bookName">
+                    <label className="mr-4 block md:inline" htmlFor="bookName">
                       Book Name
                     </label>
                     <input
@@ -107,7 +107,7 @@ const AddOrEditPanel = () => {
                     />
                   </div>
                   <div>
-                    <label className="mr-4" htmlFor="bookISBN">
+                    <label className="mr-4 block md:inline" htmlFor="bookISBN">
                       Book ISBN
                     </label>
                     <input
@@ -129,7 +129,7 @@ const AddOrEditPanel = () => {
                 <div className="pl-3">
                   <div className="text-xl mt-2 mb-3">Author details</div>
                   <div className="mb-3">
-                    <label className="mr-4" htmlFor="authorFirstName">
+                    <label className="mr-4 block md:inline" htmlFor="authorFirstName">
                       Author Name
                     </label>
                     <input
@@ -140,13 +140,13 @@ const AddOrEditPanel = () => {
                         });
                       }}
                       type="text"
-                      className="ml-7 text-slate-800"
+                      className="xl:ml-7 text-slate-800"
                       name="authorFirstName"
                     />
                   </div>
 
                   <div>
-                    <label className="mr-4" htmlFor="authorLastName">
+                    <label className="mr-4 block md:inline" htmlFor="authorLastName">
                       Author Lastname
                     </label>
                     <input
@@ -164,7 +164,7 @@ const AddOrEditPanel = () => {
                 </div>
               )}
 
-              <div className="pl-10 flex items-center">
+              <div className="pl-10 flex items-center mt-10 2xl:mt-0">
                 <button
                   onClick={onSaveChanges}
                   className="text-lg py-3 px-4 bg-amber-400 hover:cursor-pointer text-slate-800"

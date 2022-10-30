@@ -10,7 +10,7 @@ export const BookDetailContent = (props: BookDetailContentProps) => {
   return (
     <div>
       {props.book && (
-        <div className="grid grid-cols-2 h-screen mx-5">
+        <div className="grid xl:grid-cols-2 h-screen mx-5">
           <div className="flex justify-center mx-20">
             <img
               src="https://via.placeholder.com/300x300.png"
@@ -18,13 +18,13 @@ export const BookDetailContent = (props: BookDetailContentProps) => {
             />
           </div>
           <div>
-            <p className="text-4xl">{props.book?.title}</p>
+            <p className="text-3xl xl:text-4xl mt-5 lg:mt-0">{props.book?.title}</p>
             <p className="text-2xl">
               {props.book.author?.firstname} {props.book.author?.lastname}
             </p>
             <p className="text-xl mt-10">Description:</p>
 
-            <p>
+            <p className="text-xl xl:text-lg">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of

@@ -13,6 +13,7 @@ export const CellGrid = (props: CellGridProps) => {
 
   return (
     <div
+      role="cell-grid"
       onClick={() => {
         if (props.book.id) redirectToDetailBook(props.book.id);
       }}
