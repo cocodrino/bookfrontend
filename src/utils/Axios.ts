@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 //TODO fix vite error jest
-//const apiUrl: string = import.meta.env.VITE_POKEMON_API;
+//const apiUrl: string = import.meta.env.VITE_API;
 const API_URL = "https://bookbackend.onrender.com";
 //https://bookbackend.onrender.com/
 if (!API_URL) {

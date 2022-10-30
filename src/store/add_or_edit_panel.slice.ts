@@ -15,7 +15,7 @@ const initialState: AddOrEditPanelParams = {
 };
 
 export const addorEditPanelSlice = createSlice({
-  name: "pokemonPanel",
+  name: "addPanel",
   initialState,
   reducers: {
     togglePanel: (state, action: PayloadAction<AddOrEditPanelParams>) => {

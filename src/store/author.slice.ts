@@ -125,7 +125,7 @@ export const asyncUpdateAuthor =
 export const asyncDeleteAuthor =
   (id?: number) => async (dispatch: AppDispatch) => {
     if (!id) {
-      console.error(`you need the id in order to update pokemon`);
+      console.error(`you need the id in order to delete author`);
       return;
     }
     try {

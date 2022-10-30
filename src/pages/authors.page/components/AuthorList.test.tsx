@@ -17,22 +17,13 @@ describe("for author list", () => {
     expect(displayedAuthors.length).toEqual(13);
   });
 
-  it(
-    "when delete author must execute request and change local state",
-    async () => {
-      const displayedDeleteButtons = await screen.findAllByRole(
-        "author_delete"
-      );
+  it("when delete author must execute request and change local state", async () => {
+    const displayedDeleteButtons = await screen.findAllByRole("author_delete");
 
-      fireEvent.click(displayedDeleteButtons[0]);
+    fireEvent.click(displayedDeleteButtons[0]);
 
-      await waitFor(
-        () => {
-          expect(testStore.getState().author.authors.length).toEqual(12);
-        },
-        { timeout: 10 * 1000 }
-      );
-    },
-    15 * 1000
-  );
+    await waitFor(() => {
+      expect(testStore.getState().author.authors.length).toEqual(12);
+    });
+  });
 });

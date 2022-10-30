@@ -55,7 +55,7 @@ export const Layout: React.FC<any> = ({ children }) => {
             Show Books
           </p>
           <p
-            className="hover:cursor-pointer hover:underline text-slate-600 ml-2"
+            className="hover:cursor-pointer hover:underline text-slate-600 ml-7"
             onClick={() => {
               navigateTo("/authors");
             }}

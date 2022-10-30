@@ -34,7 +34,6 @@ const AddOrEditPanel = () => {
   }, [panelState]);
 
   const onSaveChanges = () => {
-    debugger
     if (panelState.panelOption === "book") {
       if (editOrNew === "new") {
         if (book?.title && book.isbn && author?.firstname && author.lastname) {
@@ -95,7 +94,7 @@ const AddOrEditPanel = () => {
                       Book Name
                     </label>
                     <input
-                      className="text-slate-800"
+                      className="text-slate-800 pl-4"
                       value={book?.title}
                       onChange={(e) => {
                         setBook((b) => {
@@ -117,7 +116,7 @@ const AddOrEditPanel = () => {
                           return { ...b, isbn: e.target.value };
                         });
                       }}
-                      className="ml-2 text-slate-800"
+                      className="ml-2 text-slate-800 pl-4"
                       type="text"
                       name="bookISBN"
                     />
@@ -140,7 +139,7 @@ const AddOrEditPanel = () => {
                         });
                       }}
                       type="text"
-                      className="xl:ml-7 text-slate-800"
+                      className="xl:ml-7 text-slate-800 pl-4"
                       name="authorFirstName"
                     />
                   </div>
@@ -150,7 +149,7 @@ const AddOrEditPanel = () => {
                       Author Lastname
                     </label>
                     <input
-                      className="text-slate-800"
+                      className="text-slate-800 pl-4"
                       value={author?.lastname}
                       onChange={(e) => {
                         setAuthor((a) => {

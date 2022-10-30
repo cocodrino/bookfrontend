@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint:scripts": "eslint --ext .ts,.tsx src --fix",
-    "test": "jest --silent"
+    "test": "cross-env VITE_USE_API_MOCK=true jest --silent"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
@@ -35,6 +35,7 @@
     "@vitejs/plugin-react": "^2.0.0",
     "autoprefixer": "^10.4.8",
     "babel-plugin-transform-import-meta": "^2.2.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.7.0",
